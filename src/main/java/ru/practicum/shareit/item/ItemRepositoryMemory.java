@@ -6,11 +6,12 @@ import ru.practicum.shareit.item.model.Item;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Repository
 public class ItemRepositoryMemory implements ItemRepostory {
 
-    private HashMap<Long, Item> items = new HashMap<>();
+    private Map<Long, Item> items = new HashMap<>();
     private long id = 0;
 
     @Override

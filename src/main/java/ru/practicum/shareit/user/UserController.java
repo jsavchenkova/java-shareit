@@ -22,6 +22,11 @@ public class UserController {
 
     private final UserService userService;
 
+    /**
+     * Создание пользователся
+     * @param userDtoCreate
+     * @return
+     */
     @PostMapping
     public UserDto createUser(@Valid @RequestBody UserDtoCreate userDtoCreate) {
         if (userService.isEmailExists(userDtoCreate.getEmail())) {
@@ -32,16 +37,31 @@ public class UserController {
         return userService.createUser(userDtoCreate);
     }
 
+    /**
+     * Получение списка пользователей
+     * @return
+     */
     @GetMapping
     public List<UserDto> getUsers() {
         return userService.getUsers();
     }
 
+    /**
+     * Получение пользователя по id
+     * @param id
+     * @return
+     */
     @GetMapping("/{id}")
     public UserDto getUserById(@PathVariable long id) {
         return userService.getUserById(id);
     }
 
+    /**
+     * Изменение пользователя
+     * @param id
+     * @param userDtoUpdate
+     * @return
+     */
     @PatchMapping("/{id}")
     public UserDto updateUser(@PathVariable long id, @Valid @RequestBody UserDtoUpdate userDtoUpdate) {
         if (userDtoUpdate.getEmail() != null && userService.isEmailExists(userDtoUpdate.getEmail())) {
@@ -52,6 +72,10 @@ public class UserController {
         return userService.updateUser(id, userDtoUpdate);
     }
 
+    /**
+     * Удаление пользователя
+     * @param id
+     */
     @DeleteMapping("/{id}")
     public void deleteUser(@PathVariable long id) {
         userService.deleteUser(id);

@@ -25,6 +25,12 @@ public class ItemController {
     private final ItemService itemService;
     private final UserService userService;
 
+    /**
+     * Добавление вещи
+     * @param itemDto
+     * @param userId
+     * @return
+     */
     @PostMapping
     public ResponseEntity<ItemDto> createItem(@Valid @RequestBody ItemDtoCreate itemDto,
                                               @Valid @NotNull @RequestHeader(name = "X-Sharer-User-Id") Long userId) {
@@ -34,6 +40,13 @@ public class ItemController {
         return new ResponseEntity<ItemDto>(itemService.createItem(itemDto, userId), responseHeaders, HttpStatus.OK);
     }
 
+    /**
+     * Изменение вещи
+     * @param id
+     * @param itemDto
+     * @param userId
+     * @return
+     */
     @PatchMapping("/{id}")
     public ItemDto updateItem(@PathVariable long id, @RequestBody ItemDtoUpdate itemDto,
                               @RequestHeader(name = "X-Sharer-User-Id") Long userId) {
@@ -41,16 +54,32 @@ public class ItemController {
         return itemService.updateItem(id, itemDto);
     }
 
+    /**
+     * Получение списка вещей одного пользователя
+     * @param userId
+     * @return
+     */
     @GetMapping
     public List<ItemDto> getItems(@RequestHeader(name = "X-Sharer-User-Id") Long userId) {
         return itemService.getItems(userId);
     }
 
+    /**
+     * Получение вещи по id
+     * @param id
+     * @return
+     */
     @GetMapping("/{id}")
     public ItemDto getItemById(@PathVariable long id) {
         return itemService.getItemById(id);
     }
 
+    /**
+     * Поиск вещи по названию или описанию
+     * @param text
+     * @param userId
+     * @return
+     */
     @GetMapping("/search")
     public List<ItemDto> searchItem(@RequestParam("text") String text,
                                     @RequestHeader(name = "X-Sharer-User-Id") Long userId) {
@@ -58,6 +87,10 @@ public class ItemController {
         return itemService.searchItem(text, userId);
     }
 
+    /**
+     * Удаление вещи
+     * @param id
+     */
     @DeleteMapping("/{id}")
     public void deleteItem(long id) {
         itemService.deleteItem(id);

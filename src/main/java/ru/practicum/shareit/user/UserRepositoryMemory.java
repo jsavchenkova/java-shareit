@@ -6,11 +6,12 @@ import ru.practicum.shareit.user.model.User;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Repository
 public class UserRepositoryMemory implements UserRepository {
 
-    private HashMap<Long, User> users = new HashMap<>();
+    private Map<Long, User> users = new HashMap<>();
     private Long id = 0L;
 
     @Override
