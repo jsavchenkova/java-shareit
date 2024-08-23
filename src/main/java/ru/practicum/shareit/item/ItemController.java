@@ -84,7 +84,7 @@ public class ItemController {
     public List<ItemDto> searchItem(@RequestParam("text") String text,
                                     @RequestHeader(name = "X-Sharer-User-Id") Long userId) {
         userService.getUserById(userId);
-        return itemService.searchItem(text, userId);
+        return itemService.searchItem(text);
     }
 
     /**
