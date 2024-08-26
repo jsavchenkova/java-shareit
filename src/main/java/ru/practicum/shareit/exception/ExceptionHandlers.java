@@ -59,7 +59,7 @@ public class ExceptionHandlers {
     }
 
     @ExceptionHandler
-    @ResponseStatus(HttpStatus.FORBIDDEN)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
     public Map<String, String> handleAccessException (final AccessException e){
         return Map.of("error", e.getMessage());
     }

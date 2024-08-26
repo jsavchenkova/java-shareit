@@ -1,5 +1,6 @@
 package ru.practicum.shareit.booking;
 
+import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.practicum.shareit.booking.constant.Status;

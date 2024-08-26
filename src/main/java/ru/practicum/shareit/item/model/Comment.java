@@ -4,6 +4,9 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import ru.practicum.shareit.user.model.User;
+
+import java.time.LocalDateTime;
 
 @Table(name = "comments")
 @Entity
@@ -19,4 +22,10 @@ public class Comment {
     @OneToOne
     @JoinColumn(name="itemId")
     private Item item;
+
+    @OneToOne
+    @JoinColumn(name="authorId")
+    private User author;
+
+    LocalDateTime created;
 }

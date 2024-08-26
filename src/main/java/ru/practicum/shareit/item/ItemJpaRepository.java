@@ -13,7 +13,8 @@ public interface ItemJpaRepository extends JpaRepository<Item, Long> {
             "from Item as i " +
             "where (lower(i.name) like lower(concat('%', ?1,'%')) " +
             "or lower(i.description) like lower(concat('%', ?1,'%')))" +
-            "and i.available = true")
+            "and i.available = true "
+            )
     List<Item> searchItem(String text);
 }
 

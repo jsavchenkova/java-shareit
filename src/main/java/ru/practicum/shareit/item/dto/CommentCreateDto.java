@@ -1,14 +1,15 @@
 package ru.practicum.shareit.item.dto;
 
-import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-import org.springframework.validation.annotation.Validated;
+import lombok.NoArgsConstructor;
 
-@Validated
+
 @Data
-@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class CommentCreateDto {
-    @NotNull
+
     private String text;
 }

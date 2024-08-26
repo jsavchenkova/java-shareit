@@ -1,5 +1,6 @@
 package ru.practicum.shareit.item;
 
+import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.practicum.shareit.booking.Booking;
@@ -11,6 +12,9 @@ import ru.practicum.shareit.item.mapper.CommentMapper;
 import ru.practicum.shareit.item.mapper.ItemMapper;
 import ru.practicum.shareit.item.model.Comment;
 import ru.practicum.shareit.item.model.Item;
+import ru.practicum.shareit.user.UserJpaRepository;
+import ru.practicum.shareit.user.exception.UserNotFoundException;
+import ru.practicum.shareit.user.model.User;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -22,6 +26,7 @@ public class ItemService {
     private final ItemJpaRepository itemRepostory;
     private final BookingJpaRepository bookingRepository;
     private final CommentJpaRepository commentRepository;
+    private final UserJpaRepository userRepository;
 
     public ItemDto createItem(ItemDtoCreate itemDto, Long userId) {
         Item item = ItemMapper.mapItemDtoCreateToItem(itemDto);
@@ -80,11 +85,6 @@ public class ItemService {
 
     public CommentDto createComment(CommentCreateDto commentDto, Long userId, Long itemId){
         Comment comment = CommentMapper.mapCommentCreateDtotoComment(commentDto);
-        Optional<Item> item = itemRepostory.findById(itemId);
-        if(item.isEmpty()){
-            throw new ItemNotFoundException("Вещь не найдена");
-        }
-        comment.setItem(item.get());
         List<Booking> bookingList = bookingRepository.findByOwner(userId);
         Optional<Booking> booking = bookingList.stream()
                 .filter(x -> x.getItem().getId() == itemId)
@@ -95,6 +95,17 @@ public class ItemService {
         if(booking.get().getStartDate().isAfter(LocalDateTime.now())){
             throw new AccessException("У пользователя нет прав писать отзыв об этой вещи");
         }
+        Optional<Item> item = itemRepostory.findById(itemId);
+        if(item.isEmpty()){
+            throw new ItemNotFoundException("Вещь не найдена");
+        }
+        comment.setItem(item.get());
+        Optional<User> user = userRepository.findById(userId);
+        if(user.isEmpty()){
+            throw new UserNotFoundException("Пользователь не найден");
+        }
+        comment.setAuthor(user.get());
+
         return CommentMapper.mapCommentToCommentDto(commentRepository.save(comment));
 
     }

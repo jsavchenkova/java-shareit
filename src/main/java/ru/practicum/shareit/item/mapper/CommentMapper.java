@@ -4,6 +4,8 @@ import ru.practicum.shareit.item.dto.CommentCreateDto;
 import ru.practicum.shareit.item.dto.ItemDto;
 import ru.practicum.shareit.item.dto.CommentDto;
 import ru.practicum.shareit.item.model.Comment;
+import ru.practicum.shareit.user.dto.UserDto;
+import ru.practicum.shareit.user.mapper.UserMapper;
 
 public class CommentMapper {
     public static CommentDto mapCommentToCommentDto(Comment comment){
@@ -14,10 +16,13 @@ public class CommentMapper {
                 .userId(comment.getItem().getUserId())
                 .available(comment.getItem().getAvailable())
                 .build();
+        UserDto user = UserMapper.mapUserToUserDto(comment.getAuthor());
         return CommentDto.builder()
                 .id(comment.getId())
                 .itemDto(item)
                 .text(comment.getText())
+                .created(comment.getCreated())
+                .author(user)
                 .build();
     }
 
