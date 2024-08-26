@@ -38,9 +38,15 @@ public class BookingController {
         return bookingService.findAll().reversed();
     }
 
-    @GetMapping("/{owner}")
+    @GetMapping("/owner")
     private List<BookingDto> findByOwner(@RequestHeader(name = "X-Sharer-User-Id") Long userId){
         return bookingService.findByOwner(userId);
+    }
+
+    @GetMapping("/{id}")
+    private BookingDto findById(@RequestHeader(name = "X-Sharer-User-Id") Long userId,
+                                @PathVariable long id){
+        return bookingService.findById(id, userId);
     }
 
 }

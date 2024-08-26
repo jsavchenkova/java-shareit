@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import ru.practicum.shareit.booking.constant.Status;
 import ru.practicum.shareit.booking.dto.BookingCreateDto;
 import ru.practicum.shareit.booking.dto.BookingDto;
+import ru.practicum.shareit.exception.AccessException;
 import ru.practicum.shareit.booking.exception.BookingNotFoundException;
 import ru.practicum.shareit.booking.exception.UserIdException;
 import ru.practicum.shareit.booking.mapper.BookingMapper;
@@ -79,5 +80,15 @@ public class BookingService {
                 .map(BookingMapper::mapBookingToBoodingDto)
                 .sorted(Comparator.comparing(BookingDto::getId))
                 .toList();
+    }
+    public BookingDto findById(Long id, long userId){
+        Optional<Booking> booking = bookingRepository.findById(id);
+        if(booking.isEmpty()){
+            throw new BookingNotFoundException("Бронирование не найдено");
+        }
+        if (booking.get().getItem().getUserId() != userId && booking.get().getUser().getId() != userId){
+            throw  new AccessException("Доступ запрещён");
+        }
+        return BookingMapper.mapBookingToBoodingDto(booking.get());
     }
 }

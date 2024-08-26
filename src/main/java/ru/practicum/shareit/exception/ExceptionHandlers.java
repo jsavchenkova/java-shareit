@@ -57,4 +57,10 @@ public class ExceptionHandlers {
     public Map<String, String> handleUserIdException(final UserIdException e){
         return Map.of("error", e.getMessage());
     }
+
+    @ExceptionHandler
+    @ResponseStatus(HttpStatus.FORBIDDEN)
+    public Map<String, String> handleAccessException (final AccessException e){
+        return Map.of("error", e.getMessage());
+    }
 }
