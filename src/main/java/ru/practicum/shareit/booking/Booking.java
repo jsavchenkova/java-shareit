@@ -9,10 +9,7 @@ import ru.practicum.shareit.booking.constant.Status;
 import ru.practicum.shareit.item.model.Item;
 import ru.practicum.shareit.user.model.User;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.ZonedDateTime;
-import java.util.Date;
 
 /**
  * TODO Sprint add-bookings.
@@ -28,10 +25,10 @@ public class Booking {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @ManyToOne
-    @JoinColumn(name = "userId")
+    @JoinColumn(name = "user_id")
     private User user;
     @OneToOne
-    @JoinColumn(name="itemId")
+    @JoinColumn(name = "item_id")
     private Item item;
     private LocalDateTime startDate;
     private LocalDateTime endDate;

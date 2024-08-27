@@ -24,6 +24,7 @@ public class UserController {
 
     /**
      * Создание пользователся
+     *
      * @param userDtoCreate
      * @return
      */
@@ -39,6 +40,7 @@ public class UserController {
 
     /**
      * Получение списка пользователей
+     *
      * @return
      */
     @GetMapping
@@ -48,6 +50,7 @@ public class UserController {
 
     /**
      * Получение пользователя по id
+     *
      * @param id
      * @return
      */
@@ -58,6 +61,7 @@ public class UserController {
 
     /**
      * Изменение пользователя
+     *
      * @param id
      * @param userDtoUpdate
      * @return
@@ -74,6 +78,7 @@ public class UserController {
 
     /**
      * Удаление пользователя
+     *
      * @param id
      */
     @DeleteMapping("/{id}")

@@ -17,7 +17,7 @@ public class CommentDto {
     LocalDateTime created;
 
     public String getAuthorName() {
-        if(author != null){
+        if (author != null) {
             return author.getName();
         }
         return null;

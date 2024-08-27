@@ -36,31 +36,31 @@ public class ExceptionHandlers {
 
     @ExceptionHandler
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    public Map<String, String> handleItemNotFoundException(final ItemNotFoundException e){
+    public Map<String, String> handleItemNotFoundException(final ItemNotFoundException e) {
         return Map.of("error", e.getMessage());
     }
 
     @ExceptionHandler
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public Map<String, String> handleItemNotAvailableException(final ItemNotAvailableException e){
+    public Map<String, String> handleItemNotAvailableException(final ItemNotAvailableException e) {
         return Map.of("error", e.getMessage());
     }
 
     @ExceptionHandler
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    public Map<String, String> handleBookingNotFoundException(final BookingNotFoundException e){
+    public Map<String, String> handleBookingNotFoundException(final BookingNotFoundException e) {
         return Map.of("error", e.getMessage());
     }
 
     @ExceptionHandler
     @ResponseStatus(HttpStatus.FORBIDDEN)
-    public Map<String, String> handleUserIdException(final UserIdException e){
+    public Map<String, String> handleUserIdException(final UserIdException e) {
         return Map.of("error", e.getMessage());
     }
 
     @ExceptionHandler
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public Map<String, String> handleAccessException (final AccessException e){
+    public Map<String, String> handleAccessException(final AccessException e) {
         return Map.of("error", e.getMessage());
     }
 }
