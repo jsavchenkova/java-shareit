@@ -19,33 +19,66 @@ public class BookingController {
 
     private final BookingService bookingService;
 
+    /**
+     * Создание брони
+     *
+     * @param bookingDto
+     * @param userId     автор брони
+     * @return
+     */
     @PostMapping
     private BookingDto createBookingDto(@RequestBody BookingCreateDto bookingDto,
-                                        @RequestHeader(name = "X-Sharer-User-Id") Long userId){
-         return bookingService.createBooking(bookingDto, userId);
+                                        @RequestHeader(name = "X-Sharer-User-Id") Long userId) {
+        return bookingService.createBooking(bookingDto, userId);
 
     }
 
+    /**
+     * Редактирование брони
+     *
+     * @param userId
+     * @param id
+     * @param approved
+     * @return
+     */
     @PatchMapping("/{id}")
     private BookingDto updateBooking(@RequestHeader(name = "X-Sharer-User-Id") Long userId,
                                      @PathVariable long id,
-                                     @RequestParam("approved") Boolean approved){
-        return bookingService.updateBooking(id,userId, approved);
+                                     @RequestParam("approved") Boolean approved) {
+        return bookingService.updateBooking(id, userId, approved);
     }
 
+    /**
+     * получение всех броней
+     *
+     * @return
+     */
     @GetMapping
-    private List<BookingDto> findAll(){
+    private List<BookingDto> findAll() {
         return bookingService.findAll().reversed();
     }
 
+    /**
+     * Получение брони по хозяину
+     *
+     * @param userId
+     * @return
+     */
     @GetMapping("/owner")
-    private List<BookingDto> findByOwner(@RequestHeader(name = "X-Sharer-User-Id") Long userId){
+    private List<BookingDto> findByOwner(@RequestHeader(name = "X-Sharer-User-Id") Long userId) {
         return bookingService.findByOwner(userId);
     }
 
+    /**
+     * получение брони по id
+     *
+     * @param userId
+     * @param id
+     * @return
+     */
     @GetMapping("/{id}")
     private BookingDto findById(@RequestHeader(name = "X-Sharer-User-Id") Long userId,
-                                @PathVariable long id){
+                                @PathVariable long id) {
         return bookingService.findById(id, userId);
     }
 

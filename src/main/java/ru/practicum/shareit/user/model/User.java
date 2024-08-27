@@ -1,8 +1,9 @@
 package ru.practicum.shareit.user.model;
 
 import jakarta.persistence.*;
-import lombok.*;
-import ru.practicum.shareit.item.model.Item;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -25,7 +26,7 @@ public class User {
     private String email;
 
     @ElementCollection
-    @CollectionTable(name="items", joinColumns=@JoinColumn(name="user_id"))
-    @Column(name="name")
+    @CollectionTable(name = "items", joinColumns = @JoinColumn(name = "user_id"))
+    @Column(name = "name")
     private Set<String> items = new HashSet<>();
 }

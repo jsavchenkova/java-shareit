@@ -1,15 +1,14 @@
 package ru.practicum.shareit.booking;
 
-import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.practicum.shareit.booking.constant.Status;
 import ru.practicum.shareit.booking.dto.BookingCreateDto;
 import ru.practicum.shareit.booking.dto.BookingDto;
-import ru.practicum.shareit.exception.AccessException;
 import ru.practicum.shareit.booking.exception.BookingNotFoundException;
 import ru.practicum.shareit.booking.exception.UserIdException;
 import ru.practicum.shareit.booking.mapper.BookingMapper;
+import ru.practicum.shareit.exception.AccessException;
 import ru.practicum.shareit.item.ItemJpaRepository;
 import ru.practicum.shareit.item.exception.ItemNotAvailableException;
 import ru.practicum.shareit.item.exception.ItemNotFoundException;
@@ -29,16 +28,16 @@ public class BookingService {
     private final UserJpaRepository userRepository;
     private final ItemJpaRepository itemRepository;
 
-    public BookingDto createBooking(BookingCreateDto bookingDto, Long userId){
+    public BookingDto createBooking(BookingCreateDto bookingDto, Long userId) {
         Optional<User> user = userRepository.findById(userId);
-        if(user.isEmpty()){
+        if (user.isEmpty()) {
             throw new UserNotFoundException("Пользователь не найден");
         }
         Optional<Item> item = itemRepository.findById(bookingDto.getItemId());
-        if(item.isEmpty()){
+        if (item.isEmpty()) {
             throw new ItemNotFoundException("Вещь не существует");
         }
-        if(!item.get().getAvailable()){
+        if (!item.get().getAvailable()) {
             throw new ItemNotAvailableException("Вещь недоступна для аренды");
         }
         Booking booking = BookingMapper.mapBookingCreateDtoToBooking(bookingDto);
@@ -48,33 +47,33 @@ public class BookingService {
         return BookingMapper.mapBookingToBoodingDto(bookingRepository.save(booking));
     }
 
-    public BookingDto updateBooking(Long bookingId, Long userId, Boolean approval){
+    public BookingDto updateBooking(Long bookingId, Long userId, Boolean approval) {
         Optional<Booking> booking = bookingRepository.findById(bookingId);
-        if(booking.isEmpty()){
+        if (booking.isEmpty()) {
             throw new BookingNotFoundException("Бронь не найдена");
         }
         Optional<User> user = userRepository.findById(userId);
-        if(user.isEmpty()){
+        if (user.isEmpty()) {
             throw new UserIdException("Доступ запрещён");
         }
-        if(approval){
+        if (approval) {
             booking.get().setStatus(Status.APPROVED);
-        }else{
+        } else {
             booking.get().setStatus(Status.REJECTED);
         }
         return BookingMapper.mapBookingToBoodingDto(bookingRepository.save(booking.get()));
     }
 
-    public List<BookingDto> findAll(){
+    public List<BookingDto> findAll() {
         return bookingRepository.findAll().stream()
                 .map(BookingMapper::mapBookingToBoodingDto)
                 .sorted(Comparator.comparing(BookingDto::getId))
                 .toList();
     }
 
-    public List<BookingDto> findByOwner(Long userId){
-        List<Booking>bookingList = bookingRepository.findByOwner(userId);
-        if(bookingList== null || bookingList.size()==0){
+    public List<BookingDto> findByOwner(Long userId) {
+        List<Booking> bookingList = bookingRepository.findByOwner(userId);
+        if (bookingList == null || bookingList.size() == 0) {
             throw new BookingNotFoundException("Не найдено ни одного бронирования");
         }
         return bookingList.stream()
@@ -82,13 +81,14 @@ public class BookingService {
                 .sorted(Comparator.comparing(BookingDto::getId))
                 .toList();
     }
-    public BookingDto findById(Long id, long userId){
+
+    public BookingDto findById(Long id, long userId) {
         Optional<Booking> booking = bookingRepository.findById(id);
-        if(booking.isEmpty()){
+        if (booking.isEmpty()) {
             throw new BookingNotFoundException("Бронирование не найдено");
         }
-        if (booking.get().getItem().getUserId() != userId && booking.get().getUser().getId() != userId){
-            throw  new AccessException("Доступ запрещён");
+        if (booking.get().getItem().getUserId() != userId && booking.get().getUser().getId() != userId) {
+            throw new AccessException("Доступ запрещён");
         }
         return BookingMapper.mapBookingToBoodingDto(booking.get());
     }

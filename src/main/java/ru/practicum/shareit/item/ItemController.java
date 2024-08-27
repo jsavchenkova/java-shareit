@@ -8,12 +8,8 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import ru.practicum.shareit.item.dto.ItemDto;
-import ru.practicum.shareit.item.dto.ItemDtoCreate;
-import ru.practicum.shareit.item.dto.ItemDtoUpdate;
+import ru.practicum.shareit.item.dto.*;
 import ru.practicum.shareit.user.UserService;
-import ru.practicum.shareit.item.dto.CommentCreateDto;
-import ru.practicum.shareit.item.dto.CommentDto;
 
 import java.util.List;
 
@@ -31,6 +27,7 @@ public class ItemController {
 
     /**
      * Добавление вещи
+     *
      * @param itemDto
      * @param userId
      * @return
@@ -46,6 +43,7 @@ public class ItemController {
 
     /**
      * Изменение вещи
+     *
      * @param id
      * @param itemDto
      * @param userId
@@ -60,6 +58,7 @@ public class ItemController {
 
     /**
      * Получение списка вещей одного пользователя
+     *
      * @param userId
      * @return
      */
@@ -70,6 +69,7 @@ public class ItemController {
 
     /**
      * Получение вещи по id
+     *
      * @param id
      * @return
      */
@@ -80,6 +80,7 @@ public class ItemController {
 
     /**
      * Поиск вещи по названию или описанию
+     *
      * @param text
      * @param userId
      * @return
@@ -93,6 +94,7 @@ public class ItemController {
 
     /**
      * Удаление вещи
+     *
      * @param id
      */
     @DeleteMapping("/{id}")
@@ -100,9 +102,16 @@ public class ItemController {
         itemService.deleteItem(id);
     }
 
+    /**
+     * Добавление коментария
+     * @param userId
+     * @param itemId
+     * @param commentText
+     * @return
+     */
     @PostMapping("/{itemId}/comment")
     public CommentDto createComment(@RequestHeader(name = "X-Sharer-User-Id") Long userId,
-                                    @PathVariable Long itemId, @RequestBody CommentCreateDto commentText){
+                                    @PathVariable Long itemId, @RequestBody CommentCreateDto commentText) {
         return itemService.createComment(commentText, userId, itemId);
     }
 }

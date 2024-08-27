@@ -4,15 +4,12 @@ import ru.practicum.shareit.booking.Booking;
 import ru.practicum.shareit.booking.dto.BookingCreateDto;
 import ru.practicum.shareit.booking.dto.BookingDto;
 import ru.practicum.shareit.item.dto.ItemDto;
-import ru.practicum.shareit.item.model.Item;
 import ru.practicum.shareit.user.dto.UserDto;
 
-import java.sql.Date;
 import java.time.LocalDateTime;
-import java.time.ZonedDateTime;
 
 public class BookingMapper {
-    public static Booking mapBookingCreateDtoToBooking (BookingCreateDto bookingCreateDto){
+    public static Booking mapBookingCreateDtoToBooking(BookingCreateDto bookingCreateDto) {
 
         Booking booking = new Booking();
         booking.setStartDate(LocalDateTime.parse(bookingCreateDto.getStart()));
@@ -21,7 +18,7 @@ public class BookingMapper {
         return booking;
     }
 
-    public static BookingDto mapBookingToBoodingDto (Booking booking){
+    public static BookingDto mapBookingToBoodingDto(Booking booking) {
         UserDto userDto = UserDto.builder()
                 .id(booking.getUser().getId())
                 .name(booking.getUser().getName())

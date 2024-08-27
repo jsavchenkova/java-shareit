@@ -2,7 +2,7 @@ package ru.practicum.shareit.item.dto;
 
 import lombok.Builder;
 import lombok.Data;
-import ru.practicum.shareit.item.model.Comment;
+import ru.practicum.shareit.booking.dto.BookingDto;
 
 import java.util.Set;
 
@@ -17,5 +17,7 @@ public class ItemDto {
     private String description;
     private Boolean available;
     private Long userId;
-
+    private Set<CommentDto> comments;
+    private BookingDto lastBooking;
+    private BookingDto nextBooking;
 }

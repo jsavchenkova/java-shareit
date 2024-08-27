@@ -30,20 +30,20 @@ public class UserService {
 
     public UserDto getUserById(long id) {
         Optional<User> user = userJpaRepository.findById(id);
-        if(user.isEmpty()){
+        if (user.isEmpty()) {
             throw new UserNotFoundException("Пользователь не найден");
         }
         return UserMapper.mapUserToUserDto(user.get());
     }
 
     public boolean isEmailExists(String email) {
-        return (userJpaRepository.findByEmailContainingIgnoreCase(email).size()>0);
+        return (userJpaRepository.findByEmailContainingIgnoreCase(email).size() > 0);
     }
 
     public UserDto updateUser(long id, UserDtoUpdate userDto) {
         User user = UserMapper.mapUserDtoUpdateToUser(userDto);
         Optional<User> oUser = userJpaRepository.findById(id);
-        if(oUser.isEmpty()){
+        if (oUser.isEmpty()) {
             throw new UserNotFoundException("Пользователь не найден");
         }
         User oldUser = oUser.get();

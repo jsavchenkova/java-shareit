@@ -20,11 +20,11 @@ public class Comment {
     private String text;
 
     @OneToOne
-    @JoinColumn(name="itemId")
+    @JoinColumn(name = "item_id")
     private Item item;
 
     @OneToOne
-    @JoinColumn(name="authorId")
+    @JoinColumn(name = "author_id")
     private User author;
 
     LocalDateTime created;

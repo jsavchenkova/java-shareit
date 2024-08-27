@@ -3,6 +3,7 @@ package ru.practicum.shareit.item.model;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -22,11 +23,12 @@ public class Item {
     private String name;
     private String description;
     private Boolean available;
-    @Column(name="user_id")
+    @Column(name = "user_id")
     private Long userId;
 
-//    @ElementCollection
-//    @CollectionTable(name="comments", joinColumns=@JoinColumn(name="itemId"))
-//    Set<Comment> comments;
+    @ElementCollection
+    @CollectionTable(name = "comments", joinColumns = @JoinColumn(name = "item_id"))
+    @Column(name = "id")
+    private Set<Long> comments = new HashSet<>();
 
 }

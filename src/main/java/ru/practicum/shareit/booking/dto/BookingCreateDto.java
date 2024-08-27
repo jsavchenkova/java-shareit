@@ -4,8 +4,6 @@ import lombok.Getter;
 import lombok.Setter;
 import ru.practicum.shareit.booking.constant.Status;
 
-import java.time.ZonedDateTime;
-
 @Getter
 @Setter
 public class BookingCreateDto {
