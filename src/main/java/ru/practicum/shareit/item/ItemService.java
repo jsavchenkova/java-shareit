@@ -104,7 +104,7 @@ public class ItemService {
         Comment comment = CommentMapper.mapCommentCreateDtotoComment(commentDto);
         List<Booking> bookingList = bookingRepository.findByOwner(userId);
         Optional<Booking> booking = bookingList.stream()
-                .filter(x -> x.getItem().getId() == itemId)
+                .filter(x -> x.getItem().getId().equals(itemId))
                 .findAny();
         if (booking.isEmpty()) {
             throw new AccessException("У пользователя нет прав писать отзыв об этой вещи");

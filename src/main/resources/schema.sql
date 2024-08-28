@@ -34,24 +34,4 @@ CREATE TABLE IF NOT EXISTS comments (
   CONSTRAINT pk_comment PRIMARY KEY (id)
 );
 
-delete from comments;
-delete from bookings;
-delete from items;
-delete from users;
-
-ALTER TABLE comments
-ALTER COLUMN id
-restart ;
-
-ALTER TABLE bookings
-ALTER COLUMN id
-restart ;
-
-ALTER TABLE users
-ALTER COLUMN id
-restart ;
-
-ALTER TABLE items
-ALTER COLUMN id
-restart ;
 
