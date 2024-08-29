@@ -9,12 +9,12 @@ import java.time.LocalDateTime;
 @Data
 @Builder
 public class CommentDto {
-    Long id;
-    String text;
-    ItemDto itemDto;
-    UserDto author;
-    String authorName;
-    LocalDateTime created;
+    private Long id;
+    private String text;
+    private ItemDto itemDto;
+    private UserDto author;
+    private String authorName;
+    private LocalDateTime created;
 
     public String getAuthorName() {
         if (author != null) {
