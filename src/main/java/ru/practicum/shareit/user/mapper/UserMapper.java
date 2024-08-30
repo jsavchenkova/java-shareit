@@ -7,17 +7,17 @@ import ru.practicum.shareit.user.model.User;
 
 public class UserMapper {
     public static User mapUserDtoCreateToUser(UserDtoCreate userDtoCreate) {
-        return User.builder()
-                .name(userDtoCreate.getName())
-                .email(userDtoCreate.getEmail())
-                .build();
+        User user = new User();
+        user.setName(userDtoCreate.getName());
+        user.setEmail(userDtoCreate.getEmail());
+        return user;
     }
 
     public static User mapUserDtoUpdateToUser(UserDtoUpdate userDtoUpdate) {
-        return User.builder()
-                .name(userDtoUpdate.getName())
-                .email(userDtoUpdate.getEmail())
-                .build();
+        User user = new User();
+        user.setName(userDtoUpdate.getName());
+        user.setEmail(userDtoUpdate.getEmail());
+        return user;
     }
 
     public static UserDto mapUserToUserDto(User user) {

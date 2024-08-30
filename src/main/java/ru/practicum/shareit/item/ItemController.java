@@ -3,13 +3,12 @@ package ru.practicum.shareit.item;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import ru.practicum.shareit.item.dto.ItemDto;
-import ru.practicum.shareit.item.dto.ItemDtoCreate;
-import ru.practicum.shareit.item.dto.ItemDtoUpdate;
+import ru.practicum.shareit.item.dto.*;
 import ru.practicum.shareit.user.UserService;
 
 import java.util.List;
@@ -18,8 +17,9 @@ import java.util.List;
  * TODO Sprint add-controllers.
  */
 @RestController
-@RequestMapping("/items")
+@RequestMapping(path = "/items")
 @RequiredArgsConstructor
+@Slf4j
 public class ItemController {
 
     private final ItemService itemService;
@@ -27,6 +27,7 @@ public class ItemController {
 
     /**
      * Добавление вещи
+     *
      * @param itemDto
      * @param userId
      * @return
@@ -42,6 +43,7 @@ public class ItemController {
 
     /**
      * Изменение вещи
+     *
      * @param id
      * @param itemDto
      * @param userId
@@ -56,6 +58,7 @@ public class ItemController {
 
     /**
      * Получение списка вещей одного пользователя
+     *
      * @param userId
      * @return
      */
@@ -66,6 +69,7 @@ public class ItemController {
 
     /**
      * Получение вещи по id
+     *
      * @param id
      * @return
      */
@@ -76,6 +80,7 @@ public class ItemController {
 
     /**
      * Поиск вещи по названию или описанию
+     *
      * @param text
      * @param userId
      * @return
@@ -84,15 +89,29 @@ public class ItemController {
     public List<ItemDto> searchItem(@RequestParam("text") String text,
                                     @RequestHeader(name = "X-Sharer-User-Id") Long userId) {
         userService.getUserById(userId);
-        return itemService.searchItem(text, userId);
+        return itemService.searchItem(text);
     }
 
     /**
      * Удаление вещи
+     *
      * @param id
      */
     @DeleteMapping("/{id}")
     public void deleteItem(long id) {
         itemService.deleteItem(id);
+    }
+
+    /**
+     * Добавление коментария
+     * @param userId
+     * @param itemId
+     * @param commentText
+     * @return
+     */
+    @PostMapping("/{itemId}/comment")
+    public CommentDto createComment(@RequestHeader(name = "X-Sharer-User-Id") Long userId,
+                                    @PathVariable Long itemId, @RequestBody CommentCreateDto commentText) {
+        return itemService.createComment(commentText, userId, itemId);
     }
 }
