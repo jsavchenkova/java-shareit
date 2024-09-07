@@ -20,4 +20,5 @@ public class ItemDto {
     private Set<CommentDto> comments;
     private BookingDto lastBooking;
     private BookingDto nextBooking;
+    private Long requestId;
 }

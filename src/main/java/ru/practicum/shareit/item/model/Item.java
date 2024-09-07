@@ -25,6 +25,8 @@ public class Item {
     private Boolean available;
     @Column(name = "user_id")
     private Long userId;
+    @Column(name = "request_id")
+    private Long requestId;
 
     @ElementCollection
     @CollectionTable(name = "comments", joinColumns = @JoinColumn(name = "item_id"))
