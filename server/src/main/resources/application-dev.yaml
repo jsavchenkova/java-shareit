@@ -1,3 +1,5 @@
+server:
+  port: 9090
 spring:
   application.name: shareIt
   jpa:
@@ -12,3 +14,4 @@ spring:
     username: dbuser
     password: 12345
     driverClassName: org.postgresql.Driver
+
