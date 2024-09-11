@@ -10,7 +10,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import ru.practicum.shareit.booking.dto.BookItemRequestDto;
+import ru.practicum.shareit.booking.dto.BookingDto;
 import ru.practicum.shareit.booking.dto.BookingState;
+
+import java.util.List;
 
 
 @Controller
@@ -29,7 +32,6 @@ public class BookingController {
 		BookingState state = BookingState.from(stateParam)
 				.orElseThrow(() -> new IllegalArgumentException("Unknown state: " + stateParam));
 		log.info("Get booking with state {}, userId={}, from={}, size={}", stateParam, userId, from, size);
-		ResponseEntity<Object> o = bookingClient.getBookings(userId, state, from, size);
 		return bookingClient.getBookings(userId, state, from, size);
 	}
 
@@ -45,5 +47,17 @@ public class BookingController {
 			@PathVariable Long bookingId) {
 		log.info("Get booking {}, userId={}", bookingId, userId);
 		return bookingClient.getBooking(userId, bookingId);
+	}
+
+	@PatchMapping("/{id}")
+	public ResponseEntity<Object> updateBooking(@RequestHeader(name = "X-Sharer-User-Id") Long userId,
+									 @PathVariable long id,
+									 @RequestParam("approved") Boolean approved){
+		return bookingClient.updateBooking(userId, id, approved);
+	}
+
+	@GetMapping("/owner")
+	public ResponseEntity<Object>findByOwner(@RequestHeader(name = "X-Sharer-User-Id") Long userId) {
+		return bookingClient.findByOwner(userId);
 	}
 }
