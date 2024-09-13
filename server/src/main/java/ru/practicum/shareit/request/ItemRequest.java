@@ -2,10 +2,7 @@ package ru.practicum.shareit.request;
 
 import jakarta.persistence.*;
 import lombok.*;
-import ru.practicum.shareit.item.dto.ItemDto;
-import ru.practicum.shareit.item.model.Item;
 
-import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
@@ -14,6 +11,7 @@ import java.util.Set;
  * TODO Sprint add-item-requests.
  */
 @Table(name = "requests")
+@Builder
 @Getter
 @Setter
 @ToString

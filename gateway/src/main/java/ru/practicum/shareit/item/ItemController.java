@@ -8,9 +8,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import ru.practicum.shareit.item.dto.*;
-
-import java.util.List;
+import ru.practicum.shareit.item.dto.CommentCreateDto;
+import ru.practicum.shareit.item.dto.ItemDtoCreate;
+import ru.practicum.shareit.item.dto.ItemDtoUpdate;
 
 @Controller
 @RequestMapping(path = "/items")
@@ -22,13 +22,13 @@ public class ItemController {
 
     @PostMapping
     public ResponseEntity<Object> createItem(@Valid @RequestBody ItemDtoCreate itemDto,
-                                              @Valid @NotNull @RequestHeader(name = "X-Sharer-User-Id") Long userId){
+                                             @Valid @NotNull @RequestHeader(name = "X-Sharer-User-Id") Long userId) {
         return itemClient.createItem(itemDto, userId);
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<Object>  updateItem(@PathVariable long id, @RequestBody ItemDtoUpdate itemDto,
-                              @RequestHeader(name = "X-Sharer-User-Id") Long userId) {
+    public ResponseEntity<Object> updateItem(@PathVariable long id, @RequestBody ItemDtoUpdate itemDto,
+                                             @RequestHeader(name = "X-Sharer-User-Id") Long userId) {
         return itemClient.updateItem(id, itemDto, userId);
     }
 
@@ -44,7 +44,7 @@ public class ItemController {
 
     @GetMapping("/search")
     public ResponseEntity<Object> searchItem(@RequestParam("text") String text,
-                                    @RequestHeader(name = "X-Sharer-User-Id") Long userId) {
+                                             @RequestHeader(name = "X-Sharer-User-Id") Long userId) {
 
         return itemClient.searchItem(text, userId);
     }
@@ -56,7 +56,7 @@ public class ItemController {
 
     @PostMapping("/{itemId}/comment")
     public ResponseEntity<Object> createComment(@RequestHeader(name = "X-Sharer-User-Id") Long userId,
-                                    @PathVariable Long itemId, @RequestBody CommentCreateDto commentText) {
+                                                @PathVariable Long itemId, @RequestBody CommentCreateDto commentText) {
         return itemClient.createComment(userId, itemId, commentText);
     }
 }

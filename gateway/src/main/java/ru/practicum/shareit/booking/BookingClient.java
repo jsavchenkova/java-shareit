@@ -6,16 +6,11 @@ import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.util.DefaultUriBuilderFactory;
 import ru.practicum.shareit.booking.dto.BookItemRequestDto;
-import ru.practicum.shareit.booking.dto.BookingDto;
 import ru.practicum.shareit.booking.dto.BookingState;
 import ru.practicum.shareit.client.BaseClient;
 
-import java.util.List;
 import java.util.Map;
 
 @Service
@@ -51,8 +46,8 @@ public class BookingClient extends BaseClient {
     }
 
     public ResponseEntity<Object> updateBooking(Long userId,
-                                                 long id,
-                                                 Boolean approved){
+                                                long id,
+                                                Boolean approved) {
         Map<String, Object> parameters = Map.of(
                 "id", id,
                 "approved", approved
@@ -62,7 +57,7 @@ public class BookingClient extends BaseClient {
         return patch(path, userId, id);
     }
 
-    public ResponseEntity<Object> findByOwner( Long userId){
+    public ResponseEntity<Object> findByOwner(Long userId) {
         return get("/owner", userId);
     }
 }

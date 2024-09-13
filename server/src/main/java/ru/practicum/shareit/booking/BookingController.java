@@ -27,7 +27,7 @@ public class BookingController {
      * @return
      */
     @PostMapping
-    private BookingDto createBookingDto(@RequestBody BookingCreateDto bookingDto,
+    public BookingDto createBookingDto(@RequestBody BookingCreateDto bookingDto,
                                         @RequestHeader(name = "X-Sharer-User-Id") Long userId) {
         return bookingService.createBooking(bookingDto, userId);
 
@@ -42,7 +42,7 @@ public class BookingController {
      * @return
      */
     @PatchMapping("/{id}")
-    private BookingDto updateBooking(@RequestHeader(name = "X-Sharer-User-Id") Long userId,
+    public BookingDto updateBooking(@RequestHeader(name = "X-Sharer-User-Id") Long userId,
                                      @PathVariable long id,
                                      @RequestParam("approved") Boolean approved) {
         return bookingService.updateBooking(id, userId, approved);
@@ -54,7 +54,7 @@ public class BookingController {
      * @return
      */
     @GetMapping
-    private List<BookingDto> findAll() {
+    public List<BookingDto> findAll() {
         return bookingService.findAll().reversed();
     }
 
@@ -65,7 +65,7 @@ public class BookingController {
      * @return
      */
     @GetMapping("/owner")
-    private List<BookingDto> findByOwner(@RequestHeader(name = "X-Sharer-User-Id") Long userId) {
+    public List<BookingDto> findByOwner(@RequestHeader(name = "X-Sharer-User-Id") Long userId) {
         return bookingService.findByOwner(userId);
     }
 
@@ -77,7 +77,7 @@ public class BookingController {
      * @return
      */
     @GetMapping("/{id}")
-    private BookingDto findById(@RequestHeader(name = "X-Sharer-User-Id") Long userId,
+    public BookingDto findById(@RequestHeader(name = "X-Sharer-User-Id") Long userId,
                                 @PathVariable long id) {
         return bookingService.findById(id, userId);
     }
