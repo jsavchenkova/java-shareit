@@ -10,21 +10,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
+import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import ru.practicum.shareit.request.dto.ItemRequestCreateDto;
 import ru.practicum.shareit.request.dto.ItemRequestDto;
-import org.springframework.test.web.servlet.MockMvc;
-
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.hamcrest.Matchers.is;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static org.hamcrest.Matchers.is;
 
 @Slf4j
 @WebMvcTest(ItemRequestController.class)
@@ -39,9 +37,9 @@ class ItemRequestControllerTest {
     @Test
     @SneakyThrows
     void createItemRequest() {
-        Long userId = (long)1;
+        Long userId = (long) 1;
         String description = "description";
-        Long id = (long)123;
+        Long id = (long) 123;
         ItemRequestCreateDto crdto = new ItemRequestCreateDto();
         crdto.setDescription(description);
         ItemRequestDto dto = new ItemRequestDto();
@@ -80,9 +78,9 @@ class ItemRequestControllerTest {
 
     @Test
     void getItemRequests() throws Exception {
-        Long userId = (long)1;
+        Long userId = (long) 1;
         String description = "description";
-        Long id = (long)123;
+        Long id = (long) 123;
 
         ItemRequestDto dto = new ItemRequestDto();
         dto.setId(id);
@@ -117,9 +115,9 @@ class ItemRequestControllerTest {
 
     @Test
     void getItemRequestById() throws Exception {
-        Long userId = (long)1;
+        Long userId = (long) 1;
         String description = "description";
-        Long id = (long)123;
+        Long id = (long) 123;
 
         ItemRequestDto dto = new ItemRequestDto();
         dto.setId(id);
