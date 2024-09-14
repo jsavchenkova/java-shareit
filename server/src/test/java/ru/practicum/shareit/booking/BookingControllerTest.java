@@ -20,7 +20,9 @@ import ru.practicum.shareit.user.dto.UserDto;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 
+import static org.hamcrest.Matchers.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @Slf4j
@@ -83,6 +85,7 @@ class BookingControllerTest {
                 .andExpect(status().isOk());
 
 
+
         MvcResult mvcResult =
                 mockMvc
                         .perform(
@@ -141,7 +144,8 @@ class BookingControllerTest {
                                 .characterEncoding(StandardCharsets.UTF_8)
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .accept(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk());
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.id", is(dto.getId()), Long.class));
 
         MvcResult mvcResult =
                 mockMvc
@@ -321,7 +325,8 @@ class BookingControllerTest {
                                 .characterEncoding(StandardCharsets.UTF_8)
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .accept(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk());
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.id", is(dto.getId()), Long.class));
 
 
         MvcResult mvcResult =

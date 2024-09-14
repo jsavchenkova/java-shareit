@@ -12,7 +12,7 @@ import java.util.Optional;
 
 @DataJpaTest
 @RequiredArgsConstructor(onConstructor_ = @Autowired)
-class ItemServiceTest {
+class ItemRepositoryTest {
 
     private final ItemJpaRepository itemRepository;
 

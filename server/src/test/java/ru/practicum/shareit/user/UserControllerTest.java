@@ -150,8 +150,10 @@ class UserControllerTest {
                                 .characterEncoding(StandardCharsets.UTF_8)
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .accept(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk());
-
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.id", is(userDto.getId()), Long.class))
+                .andExpect(jsonPath("$.name", is(name), String.class))
+                .andExpect(jsonPath("$.email", is(email), String.class));
 
         MvcResult mvcResult =
                 mockMvc
