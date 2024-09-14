@@ -17,15 +17,12 @@ import ru.practicum.shareit.item.dto.ItemDtoCreate;
 import ru.practicum.shareit.item.dto.ItemDtoUpdate;
 import ru.practicum.shareit.user.UserService;
 import ru.practicum.shareit.user.dto.UserDto;
-import ru.practicum.shareit.user.dto.UserDtoCreate;
-import ru.practicum.shareit.user.dto.UserDtoUpdate;
 
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 import static org.hamcrest.Matchers.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.patch;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -45,7 +42,7 @@ class ItemControllerTest {
     @SneakyThrows
     void createItem() {
         long id = 1;
-        long userId =3;
+        long userId = 3;
         String name = "name";
         String description = "description";
         boolean available = true;
@@ -105,7 +102,7 @@ class ItemControllerTest {
     @SneakyThrows
     void updateItem() {
         long id = 1;
-        long userId =3;
+        long userId = 3;
         String name = "name";
         String description = "description";
         boolean available = true;
@@ -158,7 +155,7 @@ class ItemControllerTest {
     @SneakyThrows
     void getItems() {
         long id = 1;
-        long userId =3;
+        long userId = 3;
         String name = "name";
         String description = "description";
         boolean available = true;
@@ -203,7 +200,7 @@ class ItemControllerTest {
     void getItemById() {
 
         long id = 1;
-        long userId =3;
+        long userId = 3;
         String name = "name";
         String description = "description";
         boolean available = true;
@@ -248,7 +245,7 @@ class ItemControllerTest {
     void searchItem() {
 
         long id = 1;
-        long userId =3;
+        long userId = 3;
         String name = "name";
         String description = "description";
         boolean available = true;
