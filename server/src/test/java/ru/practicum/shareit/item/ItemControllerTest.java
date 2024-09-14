@@ -12,9 +12,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
-import ru.practicum.shareit.item.dto.ItemDto;
-import ru.practicum.shareit.item.dto.ItemDtoCreate;
-import ru.practicum.shareit.item.dto.ItemDtoUpdate;
+import ru.practicum.shareit.item.dto.*;
 import ru.practicum.shareit.user.UserService;
 import ru.practicum.shareit.user.dto.UserDto;
 
@@ -287,4 +285,56 @@ class ItemControllerTest {
     }
 
 
+    @Test
+    @SneakyThrows
+    void createComment() {
+        CommentCreateDto comment  = new CommentCreateDto();
+        comment.setText("text");
+
+        long id = 1;
+        long userId = 3;
+        String name = "name";
+        String description = "description";
+        boolean available = true;
+
+        ItemDto itemDto = ItemDto.builder()
+                .name(name)
+                .available(available)
+                .id(id)
+                .userId(userId)
+                .description(description)
+                .build();
+
+        CommentDto dto = CommentDto.builder()
+                .id(5l)
+                .build();
+
+
+        Mockito.when(service.createComment(comment, userId, id)).thenReturn(dto);
+
+        mockMvc
+                .perform(
+                        post("/items/" + id + "/comment")
+                                .content(mapper.writeValueAsString(comment))
+                                .header("X-Sharer-User-Id", userId)
+                                .characterEncoding(StandardCharsets.UTF_8)
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
+
+        MvcResult mvcResult =
+                mockMvc
+                        .perform(
+                                post("/items/" + id + "/comment")
+                                        .content(mapper.writeValueAsString(comment))
+                                        .header("X-Sharer-User-Id", userId)
+                                        .characterEncoding(StandardCharsets.UTF_8)
+                                        .contentType(MediaType.APPLICATION_JSON)
+                                        .accept(MediaType.APPLICATION_JSON))
+                        .andExpect(status().isOk())
+                        .andReturn();
+
+        String responseBody = mvcResult.getResponse().getContentAsString();
+        log.info("Тело ответа: {}", responseBody);
+    }
 }
