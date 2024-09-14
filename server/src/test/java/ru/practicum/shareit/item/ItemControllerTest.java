@@ -288,7 +288,7 @@ class ItemControllerTest {
     @Test
     @SneakyThrows
     void createComment() {
-        CommentCreateDto comment  = new CommentCreateDto();
+        CommentCreateDto comment = new CommentCreateDto();
         comment.setText("text");
 
         long id = 1;
@@ -305,8 +305,9 @@ class ItemControllerTest {
                 .description(description)
                 .build();
 
+        long commId = 5;
         CommentDto dto = CommentDto.builder()
-                .id(5l)
+                .id(commId)
                 .build();
 
 
