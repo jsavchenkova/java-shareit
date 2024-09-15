@@ -7,7 +7,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
-import ru.practicum.shareit.booking.exception.BookingNotFoundException;
 import ru.practicum.shareit.user.dto.UserDto;
 import ru.practicum.shareit.user.dto.UserDtoCreate;
 import ru.practicum.shareit.user.dto.UserDtoUpdate;
@@ -17,7 +16,6 @@ import ru.practicum.shareit.user.model.User;
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 
 @ExtendWith(MockitoExtension.class)
@@ -145,7 +143,7 @@ class UserServiceTest {
                 .build();
 
         Mockito.when(repository.findById(id)).thenReturn(Optional.empty());
-        Assertions.assertThrows(UserNotFoundException.class, () -> service.updateUser(id,userDtoUpdate));
+        Assertions.assertThrows(UserNotFoundException.class, () -> service.updateUser(id, userDtoUpdate));
     }
 
     @Test

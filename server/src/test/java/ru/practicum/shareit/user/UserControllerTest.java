@@ -4,7 +4,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +15,6 @@ import org.springframework.test.web.servlet.MvcResult;
 import ru.practicum.shareit.user.dto.UserDto;
 import ru.practicum.shareit.user.dto.UserDtoCreate;
 import ru.practicum.shareit.user.dto.UserDtoUpdate;
-import ru.practicum.shareit.user.exception.UserNotFoundException;
 
 import java.nio.charset.StandardCharsets;
 import java.util.List;
@@ -249,7 +247,7 @@ class UserControllerTest {
 
     @Test
     @SneakyThrows
-    void createUserUserAlreadyExisxtsException(){
+    void createUserUserAlreadyExisxtsException() {
         long id = 1;
         long userId = 2;
         String name = "name";
@@ -310,7 +308,6 @@ class UserControllerTest {
                 .build();
 
         Mockito.when(service.isEmailExists(any())).thenReturn(true);
-
 
 
         mockMvc

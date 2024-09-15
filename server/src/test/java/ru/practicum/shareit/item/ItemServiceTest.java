@@ -1,6 +1,5 @@
 package ru.practicum.shareit.item;
 
-import org.checkerframework.checker.units.qual.C;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -11,7 +10,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import ru.practicum.shareit.booking.Booking;
 import ru.practicum.shareit.booking.BookingJpaRepository;
 import ru.practicum.shareit.booking.constant.Status;
-import ru.practicum.shareit.booking.dto.BookingCreateDto;
 import ru.practicum.shareit.booking.mapper.BookingMapper;
 import ru.practicum.shareit.exception.AccessException;
 import ru.practicum.shareit.item.dto.CommentCreateDto;
@@ -31,7 +29,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 
 @ExtendWith(MockitoExtension.class)
@@ -323,7 +320,7 @@ class ItemServiceTest {
     }
 
     @Test
-    void searchItemBlank(){
+    void searchItemBlank() {
         List<Item> result = itemRepository.searchItem("");
 
         Assertions.assertEquals(0, result.size());
@@ -368,13 +365,13 @@ class ItemServiceTest {
         commentDto.setText("text");
 
 
-
         Assertions.assertThrows(AccessException.class, () -> service.createComment(
-                commentDto , userId, 5L));
+                commentDto, userId, 5L));
     }
 
     @Test
     void createCommentException() {
+
         long id = 1;
         long userId = 3;
         String name = "name";
@@ -412,13 +409,13 @@ class ItemServiceTest {
         commentDto.setText("text");
 
 
-
         Assertions.assertThrows(AccessException.class, () -> service.createComment(
-                commentDto , userId, id));
+                commentDto, userId, id));
     }
 
     @Test
     void createCommentItemNotFoundException() {
+
         long id = 1;
         long userId = 3;
         String name = "name";
@@ -458,11 +455,12 @@ class ItemServiceTest {
         Mockito.when(itemRepository.findById(id)).thenReturn(Optional.empty());
 
         Assertions.assertThrows(ItemNotFoundException.class, () -> service.createComment(
-                commentDto , userId, id));
+                commentDto, userId, id));
     }
 
     @Test
     void createCommentUserNotFoundException() {
+
         long id = 1;
         long userId = 3;
         String name = "name";
@@ -504,7 +502,7 @@ class ItemServiceTest {
         Mockito.when(userRepository.findById(userId)).thenReturn(Optional.empty());
 
         Assertions.assertThrows(UserNotFoundException.class, () -> service.createComment(
-                commentDto , userId, id));
+                commentDto, userId, id));
     }
 
 

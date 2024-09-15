@@ -8,7 +8,6 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import ru.practicum.shareit.item.ItemJpaRepository;
-import ru.practicum.shareit.item.dto.ItemDto;
 import ru.practicum.shareit.item.model.Item;
 import ru.practicum.shareit.request.dto.ItemRequestCreateDto;
 import ru.practicum.shareit.request.dto.ItemRequestDto;
@@ -17,7 +16,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 
 @ExtendWith(MockitoExtension.class)
@@ -69,7 +67,7 @@ class ItemRequestServiceTest {
 
         Mockito.when(repository.findAllByAuthorId(userId)).thenReturn(List.of(itemRequest));
 
-        List<ItemRequestDto> result =service.getItemRequests(userId);
+        List<ItemRequestDto> result = service.getItemRequests(userId);
 
         Assertions.assertEquals(result.stream().findFirst().get(), dto);
     }
