@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,11 +16,13 @@ import org.springframework.test.web.servlet.MvcResult;
 import ru.practicum.shareit.user.dto.UserDto;
 import ru.practicum.shareit.user.dto.UserDtoCreate;
 import ru.practicum.shareit.user.dto.UserDtoUpdate;
+import ru.practicum.shareit.user.exception.UserNotFoundException;
 
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 import static org.hamcrest.Matchers.is;
+import static org.mockito.ArgumentMatchers.any;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -238,6 +241,96 @@ class UserControllerTest {
                                         .contentType(MediaType.APPLICATION_JSON)
                                         .accept(MediaType.APPLICATION_JSON))
                         .andExpect(status().isOk())
+                        .andReturn();
+
+        String responseBody = mvcResult.getResponse().getContentAsString();
+        log.info("Тело ответа: {}", responseBody);
+    }
+
+    @Test
+    @SneakyThrows
+    void createUserUserAlreadyExisxtsException(){
+        long id = 1;
+        long userId = 2;
+        String name = "name";
+        String email = "email@email.dk";
+        UserDtoCreate userDtoCreate = UserDtoCreate.builder()
+                .name(name)
+                .email(email)
+                .build();
+
+        UserDto userDto = UserDto.builder()
+                .id(id)
+                .name(name)
+                .email(email)
+                .build();
+
+
+        Mockito.when(service.isEmailExists(any())).thenReturn(true);
+
+        mockMvc
+                .perform(
+                        post("/users")
+                                .content(mapper.writeValueAsString(userDtoCreate))
+                                .characterEncoding(StandardCharsets.UTF_8)
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isConflict());
+
+        MvcResult mvcResult =
+                mockMvc
+                        .perform(
+                                post("/users")
+                                        .content(mapper.writeValueAsString(userDtoCreate))
+                                        .characterEncoding(StandardCharsets.UTF_8)
+                                        .contentType(MediaType.APPLICATION_JSON)
+                                        .accept(MediaType.APPLICATION_JSON))
+                        .andExpect(status().isConflict())
+                        .andReturn();
+
+        String responseBody = mvcResult.getResponse().getContentAsString();
+        log.info("Тело ответа: {}", responseBody);
+    }
+
+    @Test
+    @SneakyThrows
+    void updateUserUserAlreadyExisxtsException() {
+        long id = 1;
+        String email = "email@email.dk";
+        String newName = "newName";
+        UserDtoUpdate userDtoUpdate = UserDtoUpdate.builder()
+                .name(newName)
+                .email(email)
+                .build();
+
+        UserDto userDto = UserDto.builder()
+                .id(id)
+                .name(newName)
+                .email(email)
+                .build();
+
+        Mockito.when(service.isEmailExists(any())).thenReturn(true);
+
+
+
+        mockMvc
+                .perform(
+                        patch("/users/" + id)
+                                .content(mapper.writeValueAsString(userDtoUpdate))
+                                .characterEncoding(StandardCharsets.UTF_8)
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isConflict());
+
+        MvcResult mvcResult =
+                mockMvc
+                        .perform(
+                                patch("/users/" + id)
+                                        .content(mapper.writeValueAsString(userDtoUpdate))
+                                        .characterEncoding(StandardCharsets.UTF_8)
+                                        .contentType(MediaType.APPLICATION_JSON)
+                                        .accept(MediaType.APPLICATION_JSON))
+                        .andExpect(status().isConflict())
                         .andReturn();
 
         String responseBody = mvcResult.getResponse().getContentAsString();
