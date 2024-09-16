@@ -16,6 +16,6 @@ public class ItemRequestDto {
     private Long authorId;
     private LocalDateTime created;
 
-    List<ItemDto> items;
+    private List<ItemDto> items;
 
 }

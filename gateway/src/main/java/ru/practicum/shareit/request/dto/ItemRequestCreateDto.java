@@ -8,5 +8,5 @@ import org.springframework.validation.annotation.Validated;
 @Data
 public class ItemRequestCreateDto {
     @NotNull
-    String description;
+    private String description;
 }

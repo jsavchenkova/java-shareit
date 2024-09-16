@@ -29,6 +29,6 @@ public class ItemRequest {
     @ElementCollection
     @CollectionTable(name = "items", joinColumns = @JoinColumn(name = "request_id"))
     @Column(name = "id")
-    Set<Long> items = new HashSet<>();
+    private Set<Long> items = new HashSet<>();
 
 }

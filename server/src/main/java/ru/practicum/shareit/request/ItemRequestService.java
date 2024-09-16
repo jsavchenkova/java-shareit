@@ -38,7 +38,7 @@ public class ItemRequestService {
         Optional<ItemRequest> itemRequest = itemRequestJpaRepository.findById(id);
         if (itemRequest.isPresent()) {
             ItemRequestDto res = ItemRequestMapper.mapToItemRequestDto(itemRequest.get());
-            List<ItemDto> list = itemRequest.get().items.stream()
+            List<ItemDto> list = itemRequest.get().getItems().stream()
                     .map(x -> itemRepository.findById(x).get())
                     .map(ItemMapper::mapItemToItemDto)
                     .toList();
